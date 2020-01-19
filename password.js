@@ -21,9 +21,11 @@ alert(whatLength);
 function whatLength(userEntry) {
     requirements.length = userEntry; 
 }
+event();
 
-var yesSpecial = confirm ("Does your password include special characters?");
 function isSpecialCharacters() {
+    var yesSpecial = confirm ("Does your password include special characters?");
+
 if (yesSpecial === true) {
 specialCharacters = userpickedspecialchar ();
 }
@@ -32,32 +34,39 @@ else {
 yesSpecial = false;
 }
 
-
 }
-var yesLower = confirm ("Does your password include lowercase characters?");
+
+isSpecialCharacters();
+
 function isLowercaseCharacters() {
+    var yesLower = confirm ("Does your password include lowercase characters?");
     if (yesLower === true) {
-    lowercaseCharacters = userpickedlower ();}
+    lowercaseCharacters = userpickedlower ();
+}
     
     else {
     yesLower = false;
     }
 
-    }
+}
 
-var yesUpper = confirm ("Does your password include uppercase characters?");
+isLowercaseCharacters();
+
 function isUppercaseCharacters() {
+var yesUpper = confirm ("Does your password include uppercase characters?");
     if (yesUpper === true) {
-    UppercaseCharacters = userpickedupper ();}
+    UppercaseCharacters = userpickedupper ();
+    }
         
     else {
     yesUpper = false;
     }
 
-    }
+}
+isUppercaseCharacters();
 
+function isNumericCharacters() {
 var yesNumeric = confirm ("Does your password include numeric characters?");
-    function isNumericCharacters() {
     if (yesNumeric === true) {
     NumericCharacters = userpickednumeric (); 
     }
@@ -68,6 +77,7 @@ var yesNumeric = confirm ("Does your password include numeric characters?");
    
     }
 
+    isNumericCharacters();
         
 function determineRequirementString() {
     var reqstring = ''
@@ -83,27 +93,28 @@ function determineRequirementString() {
     if (yesNumeric === true) {
         reqstring = reqstring.concat(numericCharacters);
     }
-
  //call randomize which will return passoword
  var randompass = randomize(reqstring, requirements.length);
+randompass();
 
 }
 
+determineRequirementString();
+
 
 //after required string is determined, within that function we will call randomize function which will return passwordValue
-function randomize(reqstring, length) {
+function randomize(string, length) {
     var passwordValue = ''
     for (var i = 0, n = string.length; i < length; ++i) {
         passwordValue += string.charAt(Math.floor(Math.random() * n))
     }
     var i = passwordValue;
     return passwordValue;
-    console.log(passwordValue);
-    return this;
 
 }
+randomize();
 
-var finalanswer = alert ();
+var finalanswer = alert ("We're sorry - we are having technical difficulties at the moment, please check back later");
 
 
 })
