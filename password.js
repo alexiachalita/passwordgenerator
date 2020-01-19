@@ -1,3 +1,5 @@
+var textarea = document.getElementById('password');
+
 var requirements = {
     length: null,
     specialCharacters: null,
@@ -14,7 +16,7 @@ var numericCharacters = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
 var generateEl = document.getElementById("generate")
 
 generateEl.addEventListener('click',function(event){
-whatLength = prompt("How many characters would you like your password to contain?");
+var whatLength = prompt("How many characters would you like your password to contain?");
 alert(whatLength);
 function whatLength(userEntry) {
     requirements.length = userEntry; 
@@ -30,8 +32,8 @@ else {
 yesSpecial = false;
 }
 
-}
 
+}
 var yesLower = confirm ("Does your password include lowercase characters?");
 function isLowercaseCharacters() {
     if (yesLower === true) {
@@ -40,7 +42,7 @@ function isLowercaseCharacters() {
     else {
     yesLower = false;
     }
-    
+
     }
 
 var yesUpper = confirm ("Does your password include uppercase characters?");
@@ -51,7 +53,7 @@ function isUppercaseCharacters() {
     else {
     yesUpper = false;
     }
-        
+
     }
 
 var yesNumeric = confirm ("Does your password include numeric characters?");
@@ -63,10 +65,9 @@ var yesNumeric = confirm ("Does your password include numeric characters?");
     else {
     yesNumeric = false;
     }
-            
+   
     }
 
-var finalanswer = alert (randompass);
         
 function determineRequirementString() {
     var reqstring = ''
@@ -87,8 +88,10 @@ function determineRequirementString() {
  var randompass = randomize(reqstring, requirements.length);
 
 }
+
+
 //after required string is determined, within that function we will call randomize function which will return passwordValue
-function randomize(string, length) {
+function randomize(reqstring, length) {
     var passwordValue = ''
     for (var i = 0, n = string.length; i < length; ++i) {
         passwordValue += string.charAt(Math.floor(Math.random() * n))
@@ -96,7 +99,12 @@ function randomize(string, length) {
     var i = passwordValue;
     return passwordValue;
     console.log(passwordValue);
+    return this;
+
 }
+
+var finalanswer = alert ();
+
 
 })
 
