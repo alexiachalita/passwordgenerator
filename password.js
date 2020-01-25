@@ -8,14 +8,14 @@ var requirements = {
     numericCharacters: null
 }
 
-var total = (specialCharacters + lowercaseCharacters + uppercaseCharacters + numericCharacters)
-
-var specialCharacters = ["!", "\|", "#", "$", "%", "&", "*", "+", "-", ".", "/"]
-var lowercaseCharacters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
-var uppercaseCharacters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
-var numericCharacters = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
-
-var generateEl = document.getElementById("generate")
+//var total = (specialCharacters + lowercaseCharacters + uppercaseCharacters + numericCharacters)
+var charSet = {
+    specialCharacters : ["!", "\|", "#", "$", "%", "&", "*", "+", "-", ".", "/"],
+    lowercaseCharacters : ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"],
+    uppercaseCharacters : ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"],
+    numericCharacters : ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"],
+}
+var generateEl = document.getElementById("generate");
 
 var whatLength = prompt("How many characters would you like your password to contain?");
 generateEl.addEventListener('click', function (event) {
@@ -31,7 +31,7 @@ generateEl.addEventListener('click', function (event) {
         if (yesSpecial === true) {
             requirements.specialCharacters = true;
         } else {
-            yesSpecial = false;
+            requirements.specialCharacters = false;
         }
 
         return yesSpecial;
@@ -44,9 +44,8 @@ generateEl.addEventListener('click', function (event) {
         var yesLower = confirm("Does your password include lowercase characters?");
         if (yesLower === true) {
             requirements.lowercaseCharacters = true;
-            
         } else {
-            yesLower = false;
+            requirements.lowercaseCharacters = false;
         }
         return yesLower;
     }
@@ -58,7 +57,7 @@ generateEl.addEventListener('click', function (event) {
         if (yesUpper === true) {
         requirements.uppercaseCharacters = true;
         } else {
-            yesUpper = false;
+            requirements.uppercaseCharacters = false;
         }
         return yesUpper;
     }
@@ -69,46 +68,94 @@ generateEl.addEventListener('click', function (event) {
         if (yesNumeric === true) {
         requirements.numericCharacters = true;
         } else {
-            yesNumeric = false;
+            requirements.numericCharacters = false;
         }
         return yesNumeric;
     }
 
     isNumericCharacters();
 
+    function returnRndValue(arr) {
+        let index = Math.floor(Math.random() * arr.length);
+        return arr[index];
+    }
+
+    function randomize(arr) {
+        for (let i=0; i<arr.length; i++) {
+            let index = Math.floor(Math.random() * arr.length);
+            let temp = arr[i];
+            arr[i] = arr[index];
+            arr[index] = temp;
+        }
+        return arr;
+    }
+
     function determineRequirementString() {
         var reqstring = []
-        if (requirements.specialCharacters === true) {
-            reqstring.push(specialCharacters);
+        // if (requirements.specialCharacters === true) {
+        //     reqstring.push(specialCharacters);
+        // }
+        // if (requirements.lowercaseCharacters === true) {
+        //     reqstring.push(lowercaseCharacters);
+
+        // }
+        // if (requirements.uppercaseCharacters === true) {
+        //     reqstring.push(uppercaseCharacters);
+
+        // }
+        // if (requirements.NumericCharacters === true) {
+        //     reqstring.push(numericCharacters);
+
+        // }
+        const keys = Object.keys(requirements);
+        keys.shift(); //length is the first element, so I want to remove that
+        let ptr = 0;
+        i=0;
+        let truthValue = false;
+        for (let j=0; j<keys.length; j++) {
+            if (requirements[keys[j]] === true) {
+                truthValue = true;
+            }
         }
-        if (requirements.lowercaseCharacters === true) {
-            reqstring.push(lowercaseCharacters);
-
+        if (!truthValue) {
+            alert('Please select at least one character type choice');
+            return;
         }
-        if (requirements.uppercaseCharacters === true) {
-            reqstring.push(uppercaseCharacters);
-
+        while (i<requirements.length) {
+            let currentRequirement = keys[ptr];
+            if (requirements[currentRequirement] === true) {
+                let value = returnRndValue(charSet[currentRequirement]);
+                reqstring.push(value);
+                i++;
+            }
+            ptr = (ptr+1)%keys.length;
         }
-        if (requirements.NumericCharacters === true) {
-            reqstring.push(numericCharacters);
+        reqstring = randomize(reqstring);
+        let textArea = document.getElementById('password');
+        //Enable Copy To Clipboard button
+        textArea.value = reqstring.join('');
+    }
+    determineRequirementString();
 
-        }
-        console.log(reqstring);
-        determineRequirementString();
+});
 
+var copyBtn = document.getElementById('copy');
+copyBtn.addEventListener('click', function(){
+    let textArea = document.getElementById('password');
+    textArea.select();
+    document.execCommand('copy');
+});
 
-
-        var passwordValue = '';
-                for (var i = 0; i < whatLength; i++) {
-                   passwordValue += 
-          var randomnumber = (Math.floor(Math.random() * reqstring));
+        // var passwordValue = '';
+        //         for (var i = 0; i < whatLength; i++) {
+        //            passwordValue += 
+        //   var randomnumber = (Math.floor(Math.random() * reqstring));
 
 
 //         //call randomize which will return passoword
 //         var randompass = randomize(reqstring, requirements.length);
 //         randompass();
 
-//     }
 
 
 
