@@ -1,5 +1,5 @@
 var textarea = document.getElementById('password');
-
+var test = '';
 var requirements = {
     length: null,
     specialCharacters: null,
@@ -8,116 +8,127 @@ var requirements = {
     numericCharacters: null
 }
 
-var specialCharacters = ["!", "\|",  "#", "$", "%", "&", "*", "+", "-", ".", "/"]
+var total = (specialCharacters + lowercaseCharacters + uppercaseCharacters + numericCharacters)
+
+var specialCharacters = ["!", "\|", "#", "$", "%", "&", "*", "+", "-", ".", "/"]
 var lowercaseCharacters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
 var uppercaseCharacters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
 var numericCharacters = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
 
 var generateEl = document.getElementById("generate")
 
-generateEl.addEventListener('click',function(event){
 var whatLength = prompt("How many characters would you like your password to contain?");
-alert(whatLength);
-function whatLength(userEntry) {
-    requirements.length = userEntry; 
-}
-event();
+generateEl.addEventListener('click', function (event) {
+    alert(whatLength);
+    pushLengthToReq(whatLength);
 
-function isSpecialCharacters() {
-    var yesSpecial = confirm ("Does your password include special characters?");
+    function pushLengthToReq(userEntry) {
+        requirements.length = parseInt(userEntry);
+    }
+    function isSpecialCharacters() {
+        var yesSpecial = confirm("Does your password include special characters?");
 
-if (yesSpecial === true) {
-specialCharacters = userpickedspecialchar ();
-}
+        if (yesSpecial === true) {
+            requirements.specialCharacters = true;
+        } else {
+            yesSpecial = false;
+        }
 
-else {
-yesSpecial = false;
-}
+        return yesSpecial;
 
-}
-
-isSpecialCharacters();
-
-function isLowercaseCharacters() {
-    var yesLower = confirm ("Does your password include lowercase characters?");
-    if (yesLower === true) {
-    lowercaseCharacters = userpickedlower ();
-}
-    
-    else {
-    yesLower = false;
     }
 
-}
+    isSpecialCharacters();
 
-isLowercaseCharacters();
-
-function isUppercaseCharacters() {
-var yesUpper = confirm ("Does your password include uppercase characters?");
-    if (yesUpper === true) {
-    UppercaseCharacters = userpickedupper ();
-    }
-        
-    else {
-    yesUpper = false;
-    }
-
-}
-isUppercaseCharacters();
-
-function isNumericCharacters() {
-var yesNumeric = confirm ("Does your password include numeric characters?");
-    if (yesNumeric === true) {
-    NumericCharacters = userpickednumeric (); 
-    }
+    function isLowercaseCharacters() {
+        var yesLower = confirm("Does your password include lowercase characters?");
+        if (yesLower === true) {
+            requirements.lowercaseCharacters = true;
             
-    else {
-    yesNumeric = false;
+        } else {
+            yesLower = false;
+        }
+        return yesLower;
     }
-   
+
+    isLowercaseCharacters();
+
+    function isUppercaseCharacters() {
+        var yesUpper = confirm("Does your password include uppercase characters?");
+        if (yesUpper === true) {
+        requirements.uppercaseCharacters = true;
+        } else {
+            yesUpper = false;
+        }
+        return yesUpper;
+    }
+    isUppercaseCharacters();
+
+    function isNumericCharacters() {
+        var yesNumeric = confirm("Does your password include numeric characters?");
+        if (yesNumeric === true) {
+        requirements.numericCharacters = true;
+        } else {
+            yesNumeric = false;
+        }
+        return yesNumeric;
     }
 
     isNumericCharacters();
-        
-function determineRequirementString() {
-    var reqstring = ''
-    if (yesSpecial === true) {
-        reqstring = reqstring.concat(specialCharacters);
-    }
-    if (yesLower === true) {
-        reqstring = reqstring.concat(lowercaseCharacters);
-    }
-    if (yesUpper === true) {
-        reqstring = reqstring.concat(uppercaseCharacters);
-    }
-    if (yesNumeric === true) {
-        reqstring = reqstring.concat(numericCharacters);
-    }
- //call randomize which will return passoword
- var randompass = randomize(reqstring, requirements.length);
-randompass();
 
-}
+    function determineRequirementString() {
+        var reqstring = []
+        if (requirements.specialCharacters === true) {
+            reqstring.push(specialCharacters);
+        }
+        if (requirements.lowercaseCharacters === true) {
+            reqstring.push(lowercaseCharacters);
 
-determineRequirementString();
+        }
+        if (requirements.uppercaseCharacters === true) {
+            reqstring.push(uppercaseCharacters);
+
+        }
+        if (requirements.NumericCharacters === true) {
+            reqstring.push(numericCharacters);
+
+        }
+        console.log(reqstring);
+        determineRequirementString();
 
 
-//after required string is determined, within that function we will call randomize function which will return passwordValue
-function randomize(string, length) {
-    var passwordValue = ''
-    for (var i = 0, n = string.length; i < length; ++i) {
-        passwordValue += string.charAt(Math.floor(Math.random() * n))
-    }
-    var i = passwordValue;
-    return passwordValue;
 
-}
-randomize();
-
-var finalanswer = alert ("We're sorry - we are having technical difficulties at the moment, please check back later");
+        var passwordValue = '';
+                for (var i = 0; i < whatLength; i++) {
+                   passwordValue += 
+          var randomnumber = (Math.floor(Math.random() * reqstring));
 
 
-})
+//         //call randomize which will return passoword
+//         var randompass = randomize(reqstring, requirements.length);
+//         randompass();
+
+//     }
+
+
+
+//     after required string is determined, within that function we will call randomize function which will return passwordValue
+//     function randomize() {
+//         var passwordValue = '';
+//         for (var i = 0, n = string.length; i < length; ++i) {
+//            passwordValue += 
+//           var test = string.charAt(Math.floor(Math.random() * 9));
+//         }
+//         var i = passwordValue;
+//         return passwordValue;
+
+//     }
+//     randomize();
+//     console.log(test);
+//     var finalanswer = alert("We're sorry - we are having technical difficulties at the moment, please check back later");
+
+
+// })
 
 
 //target id text area
@@ -145,23 +156,3 @@ document.getElementById("generate").style.width = "105px";
 document.getElementById("password").style.textAlign = "center";
 document.body.style.paddingLeft = "20px";
 document.body.style.paddingRight = "20px";
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
