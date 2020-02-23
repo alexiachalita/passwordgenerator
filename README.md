@@ -10,3 +10,4 @@ Here is finished product: https://alexiachalita.github.io/passwordgenerator/
 PHOTO: https://github.com/alexiachalita/passwordgenerator/blob/master/photo.png
 
 
+https://alexiachalita.github.io/passwordgenerator/
